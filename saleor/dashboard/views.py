@@ -31,7 +31,7 @@ def index(request):
 
 
 @staff_member_required
-def styleguide(request):
+def styleguide(request, **kwargs):
     return TemplateResponse(request, 'dashboard/styleguide/index.html', {})
 
 

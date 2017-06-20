@@ -14,7 +14,8 @@ try:
 except ImportError:
     from urllib import urlencode
 
-
+'''We can modify this to only ever return 
+    appropriate team store products'''
 def products_visible_to_user(user):
     from .models import Product
     if user.is_authenticated() and user.is_active and user.is_staff:

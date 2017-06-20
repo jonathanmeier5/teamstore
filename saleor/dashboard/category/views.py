@@ -11,7 +11,7 @@ from .forms import CategoryForm
 
 
 @staff_member_required
-def category_list(request, root_pk=None):
+def category_list(request, root_pk=None, **kwargs):
     root = None
     path = None
     categories = Category.tree.root_nodes()
