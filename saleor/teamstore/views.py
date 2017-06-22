@@ -23,9 +23,11 @@ def login(request, template_name='team-code-login.html',
     '''redirect_to = _clean_redirect(request.REQUEST.get(redirect_field_name, ''))'''
 
     # If the user is already logged in, redirect him immediately.
-    if request.session.get('valid_team_code', False):
-        redirect_to = reverseMod(reverse('core:index'),{'get': {request.session['team']}})
-        return HttpResponseRedirect(redirect_to)
+
+    if not settings.DEBUG:
+        if request.session.get('valid_team_code', False):
+            redirect_to = reverseMod('core:home', kwargs = {'get':{'team':request.session['team']}})
+            return HttpResponseRedirect(redirect_to)
 
     if request.method == "POST":
         form = authentication_form(data=request.POST)
@@ -39,8 +41,7 @@ def login(request, template_name='team-code-login.html',
 
             team = TeamStore.objects.filter(team_code=code).first()
             request.session['team'] = team.team_name
-            print(reverse('core:home'))
-            redirect_to = reverseMod(reverse('core:home'), get={'get': {'team':team.team_name}})
+            redirect_to = reverseMod('core:home', kwargs = {'get':{'team':request.session['team']}})
 
             return HttpResponseRedirect(redirect_to)
 

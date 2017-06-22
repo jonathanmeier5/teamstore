@@ -9,13 +9,10 @@ class TeamStoreAuthMiddleware(object):
 
 	def process_view(self, request, view_func, view_args, view_kwargs):
 
-		print("Hello, world!")
-		print(request.GET.get('team','stevens-ducks'))
-		code = request.session.get('team_code')
+		valid_team_code = request.session.get('valid_team_code', False)
 
-		if code:
-			if TeamStore.objects.exists(team_code=code):
-				return None
+		if valid_team_code:
+			return None
 
 		if request.path == reverse('teamstore:login'):
 			return None

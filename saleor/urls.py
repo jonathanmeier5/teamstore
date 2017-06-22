@@ -6,31 +6,33 @@ from django.contrib.staticfiles.views import serve
 from django.views.i18n import javascript_catalog
 from graphene_django.views import GraphQLView
 
+from .userprofile.urls import urlpatterns as userprofile_urls
+from .teamstore.urls import urlpatterns as teamstore_urls
 from .cart.urls import urlpatterns as cart_urls
 from .checkout.urls import urlpatterns as checkout_urls
 from .core.sitemaps import sitemaps
 from .core.urls import urlpatterns as core_urls
-from .dashboard.urls import urlpatterns as dashboard_urls
 from .data_feeds.urls import urlpatterns as feed_urls
 from .order.urls import urlpatterns as order_urls
 from .product.urls import urlpatterns as product_urls
 from .registration.urls import urlpatterns as registration_urls
 from .search.urls import urlpatterns as search_urls
-from .userprofile.urls import urlpatterns as userprofile_urls
-from .teamstore.urls import urlpatterns as teamstore_urls
+from .dashboard.urls import urlpatterns as dashboard_urls
+
+
+
 
 '''(?P<team_name>[\w+]+)
 (?P<path>[a-z0-9-_/]+?)'''
 urlpatterns = [
 
-    url(r'^$', include(core_urls, namespace='core')),
+    url(r'^', include(core_urls, namespace='core')),
     url(r'^teamstore/', include(teamstore_urls, namespace='teamstore')),
     url(r'^account/', include(registration_urls)),
     url(r'^cart/', include(cart_urls, namespace='cart')),
     url(r'^checkout/', include(checkout_urls, namespace='checkout')),
     url(r'^dashboard/', include(dashboard_urls, namespace='dashboard')),
     url(r'^graphql', GraphQLView.as_view(graphiql=settings.DEBUG)),
-    
     url(r'^order/', include(order_urls, namespace='order')),
     url(r'^products/', include(product_urls, namespace='product')),
     url(r'^profile/', include(userprofile_urls, namespace='profile')),

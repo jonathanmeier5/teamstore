@@ -21,10 +21,15 @@ from satchless.item import InsufficientStock, Item, ItemRange
 from text_unidecode import unidecode
 from versatileimagefield.fields import VersatileImageField, PPOIField
 
+from ..teamstore.utils import reverseMod
+from ..teamstore.models import TeamStore
 from ..discount.models import calculate_discounted_price
 from ..search import index
 from .utils import get_attributes_display_map
 
+DEFAULT_TEAM_ID = 4
+
+#TeamStore = TeamStoreConfig.get_model('TeamStore',False)
 
 @python_2_unicode_compatible
 class Category(MPTTModel):
@@ -39,6 +44,9 @@ class Category(MPTTModel):
         verbose_name=pgettext_lazy('Category field', 'parent'))
     hidden = models.BooleanField(
         pgettext_lazy('Category field', 'hidden'), default=False)
+    team = models.ForeignKey(
+        TeamStore, default=DEFAULT_TEAM_ID,
+        related_name='category')
 
     objects = models.Manager()
     tree = TreeManager()
@@ -52,9 +60,10 @@ class Category(MPTTModel):
         return self.name
 
     def get_absolute_url(self, ancestors=None):
-        return reverse('product:category',
-                       kwargs={'path': self.get_full_path(ancestors),
-                               'category_id': self.id})
+        return reverseMod('product:category',
+                       kwargs = {'path': self.get_full_path(ancestors),
+                               'category_id': self.id,
+                               'get':{'team':self.team.team_name }})
 
     def get_full_path(self, ancestors=None):
         if not self.parent_id:
@@ -84,6 +93,9 @@ class ProductClass(models.Model):
     is_shipping_required = models.BooleanField(
         pgettext_lazy('Product class field', 'is shipping required'),
         default=False)
+    team = models.ForeignKey(
+        TeamStore, default=DEFAULT_TEAM_ID,
+        related_name='product')
 
     class Meta:
         verbose_name = pgettext_lazy(
@@ -133,6 +145,10 @@ class Product(models.Model, ItemRange, index.Indexed):
     is_featured = models.BooleanField(
         pgettext_lazy('Product field', 'is featured'), default=False)
 
+    team = models.ForeignKey(TeamStore, 
+        default=DEFAULT_TEAM_ID,
+        related_name='products')
+
     objects = ProductManager()
 
     search_fields = [
@@ -159,8 +175,9 @@ class Product(models.Model, ItemRange, index.Indexed):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('product:details', kwargs={'slug': self.get_slug(),
-                                                  'product_id': self.id})
+        return reverseMod('product:details', kwargs={'slug': self.get_slug(),
+                                                  'product_id': self.id,
+                                                  'get':{'team':self.team.team_name} })
 
     def get_slug(self):
         return slugify(smart_text(unidecode(self.name)))
@@ -219,6 +236,10 @@ class ProductVariant(models.Model, Item):
         'ProductImage', through='VariantImage',
         verbose_name=pgettext_lazy('Product variant field', 'images'))
 
+    team = models.ForeignKey(TeamStore, 
+        default=DEFAULT_TEAM_ID,
+        related_name='product_variants')
+
     class Meta:
         app_label = 'product'
         verbose_name = pgettext_lazy('Product variant model', 'product variant')
@@ -246,8 +267,9 @@ class ProductVariant(models.Model, Item):
     def get_absolute_url(self):
         slug = self.product.get_slug()
         product_id = self.product.id
-        return reverse('product:details',
-                       kwargs={'slug': slug, 'product_id': product_id})
+        return reverseMod('product:details',
+                       kwargs={'slug': slug, 'product_id': product_id,
+                                'get': { 'team':self.team.team_name }})
 
     def as_data(self):
         return {

@@ -99,6 +99,7 @@ context_processors = [
     'saleor.core.context_processors.webpage_schema',
     'social_django.context_processors.backends',
     'social_django.context_processors.login_redirect',
+    'saleor.teamstore.context_processors.team',
 ]
 
 loaders = [
@@ -155,6 +156,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'saleor.userprofile',
+    'saleor.teamstore',
     'saleor.discount',
     'saleor.product',
     'saleor.cart',
@@ -167,7 +169,7 @@ INSTALLED_APPS = [
     'saleor.search',
     'saleor.site',
     'saleor.data_feeds',
-    'saleor.teamstore',
+    
 
     # External apps
     'versatileimagefield',

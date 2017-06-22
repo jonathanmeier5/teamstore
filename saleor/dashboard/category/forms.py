@@ -5,7 +5,6 @@ from text_unidecode import unidecode
 
 from ...product.models import Category
 
-
 class CategoryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.parent_pk = kwargs.pop('parent_pk')

@@ -75,7 +75,7 @@
                           <svg data-src="{% static "images/mobile_menu.svg" %}" width="28px" height="20px" />
                           <span>{% trans "menu" context "Hamburger button text" %}</span>
                         </div>
-                        <a href="/">
+                        <a href="{% url "core:home" %}">
                           <svg data-src="{% static "images/saleor_logo.svg" %}" height="38px" width="176px" />
                         </a>
                       </div>
@@ -123,8 +123,9 @@
                 <div class="navbar__menu">
                   <div class="container">
                     <nav class="navigation">
-                      {% url 'home' as home_url %}
-                      <ul class="nav navbar-nav{% if request.get_full_path == home_url %} no-border{% endif %}" >
+                      <!--{% if request.get_full_path == home_url %} no-border{% endif %} 
+                      place this in class tag below to remove annoying line on home page -->
+                      <ul class="nav navbar-nav" >
                         {% for category in categories %}
                             <li class="nav-item">
                               <a class="nav-link" href="{{ category.get_absolute_url }}">
@@ -187,7 +188,7 @@
                                 </a>
                               </li>
                               <li>
-                                <a href="{% url "styleguide" %}" target="_blank">
+                                <a href="{% url "core:styleguide" %}" target="_blank">
                                     {% trans "Style guide" context "Main navigation item" %}
                                 </a>
                               </li>
