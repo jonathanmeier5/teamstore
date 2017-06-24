@@ -26,7 +26,8 @@ def login(request, template_name='team-code-login.html',
 
     if not settings.DEBUG:
         if request.session.get('valid_team_code', False):
-            redirect_to = reverseMod('core:home', kwargs = {'get':{'team':request.session['team']}})
+            redirect_to = reverseMod('core:home', 
+                            kwargs = {'get':{'team':request.session['team']}})
             return HttpResponseRedirect(redirect_to)
 
     if request.method == "POST":
@@ -41,7 +42,8 @@ def login(request, template_name='team-code-login.html',
 
             team = TeamStore.objects.filter(team_code=code).first()
             request.session['team'] = team.team_name
-            redirect_to = reverseMod('core:home', kwargs = {'get':{'team':request.session['team']}})
+            redirect_to = reverseMod('core:home', 
+                        kwargs = {'get':{'team':request.session['team']}})
 
             return HttpResponseRedirect(redirect_to)
 

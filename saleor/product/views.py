@@ -16,6 +16,9 @@ from .utils import (products_with_details, products_for_cart,
                     get_product_images, get_variant_picker_data,
                     get_product_attributes_data, product_json_ld)
 
+from ..teamstore.models import TeamStore
+from ..teamstore.utils import get_team
+
 
 def product_details(request, slug, product_id, form=None):
     """Product details page
@@ -47,7 +50,9 @@ def product_details(request, slug, product_id, form=None):
         currency. The value will be None if exchange rate is not available or
         the local currency is the same as site's default currency.
     """
-    products = products_with_details(user=request.user)
+    team = get_team(request.session['team'])
+
+    products = products_with_details(team=team)
     product = get_object_or_404(products, id=product_id)
     if product.get_slug() != slug:
         return HttpResponsePermanentRedirect(product.get_absolute_url())
@@ -90,7 +95,8 @@ def product_add_to_cart(request, slug, product_id):
             'product:details',
             kwargs={'product_id': product_id, 'slug': slug}))
 
-    products = products_for_cart(user=request.user)
+    team = get_team(request.session['team'])
+    products = products_for_cart(team=team)
     product = get_object_or_404(products, pk=product_id)
     form, cart = handle_cart_form(request, product, create_cart=True)
     if form.is_valid():
@@ -112,6 +118,7 @@ def product_add_to_cart(request, slug, product_id):
 def category_index(request, path, category_id):
     category = get_object_or_404(Category, id=category_id)
     actual_path = category.get_full_path()
+    print(category_id)
     if actual_path != path:
         return redirect('product:category', permanent=True, path=actual_path,
                         category_id=category_id)

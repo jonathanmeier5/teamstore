@@ -14,6 +14,7 @@ from ..product.utils import get_availability, products_for_api
 from ..product.templatetags.product_images import product_first_image
 from .scalars import AttributesFilterScalar
 from .utils import (CategoryAncestorsCache, DjangoPkInterface)
+from ..teamstore.utils import get_team
 
 
 CONTEXT_CACHE_NAME = '__cache__'
@@ -122,7 +123,9 @@ class CategoryType(DjangoObjectType):
                 obj, context.discounts).price_range.min_price.gross, value)]
 
         tree = self.get_descendants(include_self=True)
-        qs = products_for_api(context.user)
+        
+        team = get_team(context.session.get('team'))
+        qs = products_for_api(team)
         qs = qs.filter(categories__in=tree)
         attributes_filter = args.get('attributes')
         order_by = args.get('order_by')

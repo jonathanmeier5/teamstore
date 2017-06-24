@@ -1,5 +1,6 @@
 from django.utils.http import urlencode
 from django.core.urlresolvers import reverse
+from .models import TeamStore
 
 
 def reverseMod(*args, **kwargs):
@@ -14,4 +15,9 @@ def reverseMod(*args, **kwargs):
 		print(url)
 	print(url)
 	return url
+
+
+def get_team(team_name):
+	  team = TeamStore.objects.filter(team_name=team_name).first()
+	  return team
 

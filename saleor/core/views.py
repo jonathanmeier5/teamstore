@@ -2,10 +2,12 @@ from django.template.response import TemplateResponse
 
 from ..dashboard.views import staff_member_required
 from ..product.utils import products_with_availability, products_for_homepage
-
+from ..teamstore.utils import get_team
 
 def home(request,**kwargs):
-    products = products_for_homepage()[:8]
+
+    team = get_team(request.session['team'])
+    products = products_for_homepage(team)[:8]
     products = products_with_availability(
         products, discounts=request.discounts, local_currency=request.currency)
     return TemplateResponse(

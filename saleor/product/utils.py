@@ -14,18 +14,17 @@ try:
 except ImportError:
     from urllib import urlencode
 
-'''We can modify this to only ever return 
-    appropriate team store products'''
-def products_visible_to_user(user):
+"""The following four functions define how products
+are selected and shown. There is also a class method
+in the products model related to this."""
+
+def products_visible_to_team(team):
     from .models import Product
-    if user.is_authenticated() and user.is_active and user.is_staff:
-        return Product.objects.all()
-    else:
-        return Product.objects.get_available_products()
+    #we include remove user as an arg
+    return Product.objects.filter(team=team.pk)
 
-
-def products_with_details(user):
-    products = products_visible_to_user(user)
+def products_with_details(team):
+    products = products_visible_to_team(team)
     products = products.prefetch_related(
         'categories', 'images', 'variants__stock',
         'variants__variant_images__image', 'attributes__values',
@@ -34,15 +33,15 @@ def products_with_details(user):
     return products
 
 
-def products_for_api(user):
-    products = products_visible_to_user(user)
+def products_for_api(team):
+    products = products_visible_to_team(team)
     return products.prefetch_related(
         'images', 'categories', 'variants', 'variants__stock')
 
 
-def products_for_homepage():
-    user = AnonymousUser()
-    products = products_with_details(user)
+def products_for_homepage(team):
+    #user = AnonymousUser() we no longer base product showings on users.
+    products = products_with_details(team)
     products = products.filter(is_featured=True)
     return products
 
@@ -112,8 +111,8 @@ def handle_cart_form(request, product, create_cart=False):
     return form, cart
 
 
-def products_for_cart(user):
-    products = products_visible_to_user(user)
+def products_for_cart(team):
+    products = products_visible_to_team(team)
     products = products.prefetch_related(
         'variants', 'variants__variant_images__image')
     return products
