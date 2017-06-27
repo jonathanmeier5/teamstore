@@ -57,6 +57,7 @@ def payment(request, token):
         # FIXME: redirect if there is only one payment method
         if payment_form.is_valid():
             payment_method = payment_form.cleaned_data['method']
+            print("payment method: ", payment_method)
             return redirect('order:payment', token=order.token,
                             variant=payment_method)
     return TemplateResponse(request, 'order/payment.html',

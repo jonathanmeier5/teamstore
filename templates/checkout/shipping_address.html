@@ -5,12 +5,21 @@
 {% block forms %}
     <form method="post" novalidate class="checkout__shipping">
         {% csrf_token %}
-        <h2>{% trans "Shipping address" context "Checkout shipping address title" %}</h2>
+        
+        {% if group_shipping %}
+            <h2>{% trans "Contact Info" context "Checkout shipping address title" %}</h2>
+        {% else %}    
+            <h2>{% trans "Shipping address" context "Checkout shipping address title" %}</h2>
+        {% endif %}
+
         {% if request.user.is_authenticated %}
             {% include "checkout/snippets/addresses-form.html" with addresses_form=user_form addresses=additional_addresses address_form=address_form only %}
         {% else %}
             {% bootstrap_form user_form %}
-            {% include "userprofile/snippets/address-form.html" with address_form=address_form only %}
+            {% if group_shipping %}    
+            {% else %}
+                {% include "userprofile/snippets/address-form.html" with address_form=address_form only %}
+            {% endif %}
         {% endif %}
 
         <p class="text-md-right">

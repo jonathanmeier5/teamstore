@@ -24,6 +24,7 @@ from ..product.models import Product
 from ..userprofile.models import Address
 from ..search import index
 from . import OrderStatus
+from ..teamstore.models import TeamStore
 
 
 class OrderManager(models.Manager):
@@ -91,6 +92,9 @@ class Order(models.Model, ItemSet, index.Indexed):
     discount_name = models.CharField(
         verbose_name=pgettext_lazy('Order field', 'discount name'),
         max_length=255, default='', blank=True)
+    team = models.ForeignKey(
+        TeamStore, null=True, related_name='+',
+        verbose_name=pgettext_lazy('Order field', 'team'))
 
     objects = OrderManager()
 

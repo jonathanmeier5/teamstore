@@ -14,6 +14,8 @@ from ..core import load_checkout
 from ..forms import ShippingMethodForm
 from ...registration.forms import LoginForm
 
+from ...teamstore.utils import get_team 
+
 
 @load_checkout
 @validate_cart
@@ -40,14 +42,21 @@ def shipping_address_view(request, checkout):
 @validate_shipping_address
 @add_voucher_form
 def shipping_method_view(request, checkout):
-    country_code = checkout.shipping_address.country.code
-    shipping_method_form = ShippingMethodForm(
-        country_code, request.POST or None, initial={'method': checkout.shipping_method})
-    if shipping_method_form.is_valid():
-        checkout.shipping_method = shipping_method_form.cleaned_data['method']
+    team = get_team(request.session['team'])
+    if team != None and team.group_shipping:
+        checkout.shipping_method = team.shipping_method
         return redirect('checkout:summary')
-    return TemplateResponse(request, 'checkout/shipping_method.html', context={
-        'shipping_method_form': shipping_method_form, 'checkout': checkout})
+
+    else:
+        country_code = checkout.shipping_address.country.code
+        shipping_method_form = ShippingMethodForm(
+            country_code, request.POST or None, initial={'method': checkout.shipping_method})
+        if shipping_method_form.is_valid():
+            checkout.shipping_method = shipping_method_form.cleaned_data['method']
+            return redirect('checkout:summary')
+    
+        return TemplateResponse(request, 'checkout/shipping_method.html', context={
+            'shipping_method_form': shipping_method_form, 'checkout': checkout})
 
 
 @load_checkout

@@ -4,27 +4,44 @@ from django.template.response import TemplateResponse
 from ..forms import AnonymousUserShippingForm, ShippingAddressesForm
 from ...userprofile.forms import get_address_form
 from ...userprofile.models import Address
+from ...teamstore.utils import get_team
 
 
 def anonymous_user_shipping_address_view(request, checkout):
+    team = get_team(request.session['team'])
 
-    address_form, preview = get_address_form(
-        request.POST or None, country_code=request.country.code,
-        autocomplete_type='shipping',
-        initial={'country': request.country.code},
-        instance=checkout.shipping_address)
+    if team.group_shipping:
+
+        address_form, preview = get_address_form(
+            request.POST or None, country_code=request.country.code,
+            autocomplete_type='shipping',
+            initial={'country': request.country.code},
+            instance=team.shipping_address)
+    else:
+        address_form, preview = get_address_form(
+            request.POST or None, country_code=request.country.code,
+            autocomplete_type='shipping',
+            initial={'country': request.country.code},
+            instance=checkout.shipping_address)
 
     user_form = AnonymousUserShippingForm(
         not preview and request.POST or None, initial={'email': checkout.email}
         if not preview else request.POST.dict())
-    if all([user_form.is_valid(), address_form.is_valid()]):
-        checkout.shipping_address = address_form.instance
+
+    if team.group_shipping and user_form.is_valid():
+        checkout.shipping_address = team.shipping_address
         checkout.email = user_form.cleaned_data['email']
         return redirect('checkout:shipping-method')
+
+    elif all([user_form.is_valid(), address_form.is_valid()]):
+            checkout.shipping_address = address_form.instance
+            checkout.email = user_form.cleaned_data['email']
+            return redirect('checkout:shipping-method')
+    
     return TemplateResponse(
         request, 'checkout/shipping_address.html', context={
             'address_form': address_form, 'user_form': user_form,
-            'checkout': checkout})
+            'group_shipping': team.group_shipping, 'checkout': checkout})
 
 
 def user_shipping_address_view(request, checkout):
