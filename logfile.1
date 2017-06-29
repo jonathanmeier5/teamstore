@@ -1,0 +1,200 @@
+DEBUG 2017-06-28 12:25:22,642 base 23407 140227390654208 Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = get_response(request)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/base.py", line 172, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/urls/resolvers.py", line 300, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<RegexURLResolver <RegexURLPattern list> (None:core) ^>, <RegexURLPattern home ^$>], [<RegexURLResolver <RegexURLPattern list> (None:core) ^>, <RegexURLPattern styleguide ^style-guide/>], [<RegexURLResolver <RegexURLPattern list> (None:teamstore) ^teamstore/>], [<RegexURLResolver <RegexURLPattern list> (None:None) ^account/>], [<RegexURLResolver <RegexURLPattern list> (None:cart) ^cart/>], [<RegexURLResolver <RegexURLPattern list> (None:checkout) ^checkout/>], [<RegexURLResolver <RegexURLPattern list> (None:dashboard) ^dashboard/>], [<RegexURLPattern None ^graphql>], [<RegexURLResolver <RegexURLPattern list> (None:order) ^order/>], [<RegexURLResolver <RegexURLPattern list> (None:product) ^products/>], [<RegexURLResolver <RegexURLPattern list> (None:profile) ^profile/>], [<RegexURLResolver <RegexURLPattern list> (None:search) ^search/>], [<RegexURLResolver <RegexURLPattern list> (None:data_feeds) ^feeds/>], [<RegexURLPattern django.contrib.sitemaps.views.sitemap ^sitemap\.xml$>], [<RegexURLResolver <module 'payments.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/payments/urls.py'> (None:None) >, <RegexURLPattern process_payment ^process/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12})/$>], [<RegexURLResolver <module 'payments.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/payments/urls.py'> (None:None) >, <RegexURLPattern static_process_payment ^process/(?P<variant>[a-z-]+)/$>], [<RegexURLResolver <module 'social_django.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/social_django/urls.py'> (social:social) >, <RegexURLPattern begin ^login/(?P<backend>[^/]+)/$>], [<RegexURLResolver <module 'social_django.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/social_django/urls.py'> (social:social) >, <RegexURLPattern complete ^complete/(?P<backend>[^/]+)/$>], [<RegexURLResolver <module 'social_django.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/social_django/urls.py'> (social:social) >, <RegexURLPattern disconnect ^disconnect/(?P<backend>[^/]+)/$>], [<RegexURLResolver <module 'social_django.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/social_django/urls.py'> (social:social) >, <RegexURLPattern disconnect_individual ^disconnect/(?P<backend>[^/]+)/(?P<association_id>[^/]+)/$>], [<RegexURLPattern javascript-catalog ^jsi18n/$>], [<RegexURLPattern None ^static/(?P<path>.*)$>], [<RegexURLPattern None ^media\/(?P<path>.*)$>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 885, in _resolve_lookup
+    current = current[bit]
+TypeError: 'RegexURLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 893, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'RegexURLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 900, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 907, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in '<RegexURLResolver <RegexURLPattern list> (None:profile) ^profile/>'
+DEBUG 2017-06-28 12:25:22,645 base 23407 140227390654208 Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = get_response(request)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/base.py", line 172, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/urls/resolvers.py", line 300, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<RegexURLResolver <RegexURLPattern list> (None:core) ^>, <RegexURLPattern home ^$>], [<RegexURLResolver <RegexURLPattern list> (None:core) ^>, <RegexURLPattern styleguide ^style-guide/>], [<RegexURLResolver <RegexURLPattern list> (None:teamstore) ^teamstore/>], [<RegexURLResolver <RegexURLPattern list> (None:None) ^account/>], [<RegexURLResolver <RegexURLPattern list> (None:cart) ^cart/>], [<RegexURLResolver <RegexURLPattern list> (None:checkout) ^checkout/>], [<RegexURLResolver <RegexURLPattern list> (None:dashboard) ^dashboard/>], [<RegexURLPattern None ^graphql>], [<RegexURLResolver <RegexURLPattern list> (None:order) ^order/>], [<RegexURLResolver <RegexURLPattern list> (None:product) ^products/>], [<RegexURLResolver <RegexURLPattern list> (None:profile) ^profile/>], [<RegexURLResolver <RegexURLPattern list> (None:search) ^search/>], [<RegexURLResolver <RegexURLPattern list> (None:data_feeds) ^feeds/>], [<RegexURLPattern django.contrib.sitemaps.views.sitemap ^sitemap\.xml$>], [<RegexURLResolver <module 'payments.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/payments/urls.py'> (None:None) >, <RegexURLPattern process_payment ^process/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12})/$>], [<RegexURLResolver <module 'payments.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/payments/urls.py'> (None:None) >, <RegexURLPattern static_process_payment ^process/(?P<variant>[a-z-]+)/$>], [<RegexURLResolver <module 'social_django.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/social_django/urls.py'> (social:social) >, <RegexURLPattern begin ^login/(?P<backend>[^/]+)/$>], [<RegexURLResolver <module 'social_django.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/social_django/urls.py'> (social:social) >, <RegexURLPattern complete ^complete/(?P<backend>[^/]+)/$>], [<RegexURLResolver <module 'social_django.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/social_django/urls.py'> (social:social) >, <RegexURLPattern disconnect ^disconnect/(?P<backend>[^/]+)/$>], [<RegexURLResolver <module 'social_django.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/social_django/urls.py'> (social:social) >, <RegexURLPattern disconnect_individual ^disconnect/(?P<backend>[^/]+)/(?P<association_id>[^/]+)/$>], [<RegexURLPattern javascript-catalog ^jsi18n/$>], [<RegexURLPattern None ^static/(?P<path>.*)$>], [<RegexURLPattern None ^media\/(?P<path>.*)$>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 885, in _resolve_lookup
+    current = current[bit]
+TypeError: 'RegexURLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 893, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'RegexURLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 900, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 907, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in '<RegexURLResolver <RegexURLPattern list> (None:search) ^search/>'
+DEBUG 2017-06-28 12:25:22,646 base 23407 140227390654208 Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = get_response(request)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/base.py", line 172, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/urls/resolvers.py", line 300, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<RegexURLResolver <RegexURLPattern list> (None:core) ^>, <RegexURLPattern home ^$>], [<RegexURLResolver <RegexURLPattern list> (None:core) ^>, <RegexURLPattern styleguide ^style-guide/>], [<RegexURLResolver <RegexURLPattern list> (None:teamstore) ^teamstore/>], [<RegexURLResolver <RegexURLPattern list> (None:None) ^account/>], [<RegexURLResolver <RegexURLPattern list> (None:cart) ^cart/>], [<RegexURLResolver <RegexURLPattern list> (None:checkout) ^checkout/>], [<RegexURLResolver <RegexURLPattern list> (None:dashboard) ^dashboard/>], [<RegexURLPattern None ^graphql>], [<RegexURLResolver <RegexURLPattern list> (None:order) ^order/>], [<RegexURLResolver <RegexURLPattern list> (None:product) ^products/>], [<RegexURLResolver <RegexURLPattern list> (None:profile) ^profile/>], [<RegexURLResolver <RegexURLPattern list> (None:search) ^search/>], [<RegexURLResolver <RegexURLPattern list> (None:data_feeds) ^feeds/>], [<RegexURLPattern django.contrib.sitemaps.views.sitemap ^sitemap\.xml$>], [<RegexURLResolver <module 'payments.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/payments/urls.py'> (None:None) >, <RegexURLPattern process_payment ^process/(?P<token>[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12})/$>], [<RegexURLResolver <module 'payments.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/payments/urls.py'> (None:None) >, <RegexURLPattern static_process_payment ^process/(?P<variant>[a-z-]+)/$>], [<RegexURLResolver <module 'social_django.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/social_django/urls.py'> (social:social) >, <RegexURLPattern begin ^login/(?P<backend>[^/]+)/$>], [<RegexURLResolver <module 'social_django.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/social_django/urls.py'> (social:social) >, <RegexURLPattern complete ^complete/(?P<backend>[^/]+)/$>], [<RegexURLResolver <module 'social_django.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/social_django/urls.py'> (social:social) >, <RegexURLPattern disconnect ^disconnect/(?P<backend>[^/]+)/$>], [<RegexURLResolver <module 'social_django.urls' from '/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/social_django/urls.py'> (social:social) >, <RegexURLPattern disconnect_individual ^disconnect/(?P<backend>[^/]+)/(?P<association_id>[^/]+)/$>], [<RegexURLPattern javascript-catalog ^jsi18n/$>], [<RegexURLPattern None ^static/(?P<path>.*)$>], [<RegexURLPattern None ^media\/(?P<path>.*)$>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 885, in _resolve_lookup
+    current = current[bit]
+TypeError: 'RegexURLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 893, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'RegexURLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 900, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 907, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in '<RegexURLResolver <RegexURLPattern list> (None:data_feeds) ^feeds/>'
+ERROR 2017-06-28 14:49:58,692 exception 23407 140227390654208 Internal Server Error: /teamstore/login/
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/backends/base/base.py", line 199, in ensure_connection
+    self.connect()
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/backends/base/base.py", line 171, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/backends/postgresql/base.py", line 176, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/psycopg2/__init__.py", line 164, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, async=async)
+psycopg2.OperationalError: FATAL:  password authentication failed for user "saleor"
+FATAL:  password authentication failed for user "saleor"
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = get_response(request)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/utils/decorators.py", line 149, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/views/decorators/cache.py", line 57, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "./saleor/teamstore/views.py", line 54, in login
+    return render(request, template_name, {'form': form})
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/shortcuts.py", line 30, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/loader.py", line 68, in render_to_string
+    return template.render(context, request)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/backends/django.py", line 66, in render
+    return self.template.render(context)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/base.py", line 206, in render
+    with context.bind_template(self):
+  File "/usr/lib/python3.5/contextlib.py", line 59, in __enter__
+    return next(self.gen)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/template/context.py", line 236, in bind_template
+    updates.update(processor(self.request))
+  File "./saleor/cart/context_processors.py", line 7, in cart_counter
+    cart = get_cart_from_request(request)
+  File "./saleor/cart/utils.py", line 180, in get_cart_from_request
+    cart = get_anonymous_cart_from_token(token, cart_queryset)
+  File "./saleor/cart/utils.py", line 143, in get_anonymous_cart_from_token
+    return cart_queryset.open().filter(token=token, user=None).first()
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/models/query.py", line 556, in first
+    objects = list((self if self.ordered else self.order_by('pk'))[:1])
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/models/query.py", line 256, in __iter__
+    self._fetch_all()
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/models/query.py", line 1087, in _fetch_all
+    self._result_cache = list(self.iterator())
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/models/query.py", line 54, in __iter__
+    results = compiler.execute_sql()
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/models/sql/compiler.py", line 833, in execute_sql
+    cursor = self.connection.cursor()
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/backends/base/base.py", line 231, in cursor
+    cursor = self.make_debug_cursor(self._cursor())
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/backends/base/base.py", line 204, in _cursor
+    self.ensure_connection()
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/backends/base/base.py", line 199, in ensure_connection
+    self.connect()
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/utils.py", line 94, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/utils/six.py", line 685, in reraise
+    raise value.with_traceback(tb)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/backends/base/base.py", line 199, in ensure_connection
+    self.connect()
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/backends/base/base.py", line 171, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/django/db/backends/postgresql/base.py", line 176, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "/home/jonathan/staging_teamstore/env/lib/python3.5/site-packages/psycopg2/__init__.py", line 164, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, async=async)
+django.db.utils.OperationalError: FATAL:  password authentication failed for user "saleor"
+FATAL:  password authentication failed for user "saleor"
+
+ERROR 2017-06-28 22:34:44,128 exception 23407 140227390654208 Invalid HTTP_HOST header: '138.197.85.111'. You may need to add '138.197.85.111' to ALLOWED_HOSTS.
+ERROR 2017-06-29 08:08:29,725 exception 23407 140227390654208 Invalid HTTP_HOST header: '138.197.85.111'. You may need to add '138.197.85.111' to ALLOWED_HOSTS.
+ERROR 2017-06-29 09:26:52,143 exception 23407 140227390654208 Invalid HTTP_HOST header: '138.197.85.111'. You may need to add '138.197.85.111' to ALLOWED_HOSTS.

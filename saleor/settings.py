@@ -34,7 +34,7 @@ if os.environ.get('REDIS_URL'):
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://saleor:saleor@localhost:5432/saleor',
+        default='postgres://%s:%s@localhost:5432/teamstore_db' % (os.environ.get('DB_USER'),os.environ.get('DB_PW')),
         conn_max_age=600)}
 
 
@@ -219,20 +219,33 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'filters': ['require_debug_true'],
             'formatter': 'simple'
-        },
+        }, 
+         'logfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': PROJECT_ROOT + "/logfile",
+            'maxBytes': 50000,
+            'backupCount': 5,
+            'formatter': 'verbose'    
+        }
     },
     'loggers': {
+        'django': {
+            'handlers': ['logfile'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True
         },
         'saleor': {
-            'handlers': ['console'],
+            'handlers': ['logfile'],
             'level': 'DEBUG',
             'propagate': True
-        }
-    }
+        },
+    } 
 }
 
 AUTH_USER_MODEL = 'userprofile.User'
@@ -296,7 +309,7 @@ BOOTSTRAP3 = {
 
 TEST_RUNNER = ''
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split()
+ALLOWED_HOSTS = ['staging.grawsports.com'] #os.environ.get('ALLOWED_HOSTS', 'staging.grawsports.com').split()
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
