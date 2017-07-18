@@ -26,7 +26,6 @@ MANAGERS = ADMINS
 INTERNAL_IPS = os.environ.get('INTERNAL_IPS', '127.0.0.1').split()
 
 CACHES = {'default': django_cache_url.config()}
-
 if os.environ.get('REDIS_URL'):
     CACHES['default'] = {
         'BACKEND': 'django_redis.cache.RedisCache',
@@ -260,7 +259,7 @@ OPENEXCHANGERATES_API_KEY = os.environ.get('OPENEXCHANGERATES_API_KEY')
 
 ACCOUNT_ACTIVATION_DAYS = 3
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = '/'
 
 GOOGLE_ANALYTICS_TRACKING_ID = os.environ.get('GOOGLE_ANALYTICS_TRACKING_ID')
 
