@@ -236,10 +236,6 @@ class ProductVariant(models.Model, Item):
         'ProductImage', through='VariantImage',
         verbose_name=pgettext_lazy('Product variant field', 'images'))
 
-    team = models.ForeignKey(TeamStore, 
-        default=DEFAULT_TEAM_ID,
-        related_name='product_variants')
-
     class Meta:
         app_label = 'product'
         verbose_name = pgettext_lazy('Product variant model', 'product variant')
@@ -269,7 +265,7 @@ class ProductVariant(models.Model, Item):
         product_id = self.product.id
         return reverseMod('product:details',
                        kwargs={'slug': slug, 'product_id': product_id,
-                                'get': { 'team':self.team.team_name }})
+                                'get': { 'team':self.product.team.team_name }})
 
     def as_data(self):
         return {
