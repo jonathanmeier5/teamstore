@@ -33,5 +33,7 @@ class TeamStore(models.Model):
         verbose_name_plural = pgettext_lazy('TeamStore models', 'teamstores')
         app_label = 'teamstore'
 
+    def __str__(self):
+        return self.team_name
 '''Here we can inherit from TeamStore to create sport specific stores
 that automatically populate a preset series of items'''
