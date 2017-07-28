@@ -31,10 +31,10 @@ if os.environ.get('REDIS_URL'):
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': os.environ.get('REDIS_URL')}
 
-DB_DEV = False
+DB_DEV = os.environ.get('DB_STATE',True)
 DB_STAGE = not DB_DEV
 
-if DB_DEV: db_string = 'postgres://saleor:saleor@localhost:5432/saleor'
+if DB_DEV: db_string = 'postgres://teamstore:teamstore@localhost:5432/teamstore'
 if DB_STAGE: db_string = 'postgres://%s:%s@localhost:5432/teamstore_db' % (os.environ.get('DB_USER'),os.environ.get('DB_PW'))
 
 DATABASES = {
@@ -126,6 +126,7 @@ TEMPLATES = [{
         'string_if_invalid': '<< MISSING VARIABLE "%s" >>' if DEBUG else ''}}]
 
 # Make this unique, and don't share it with anybody.
+print(os.environ.get('SECRET_KEY'))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 MIDDLEWARE_CLASSES = [
@@ -228,7 +229,13 @@ LOGGING = {
          'logfile': {
             'level':'DEBUG',
             'class':'logging.FileHandler',
-            'filename': PROJECT_ROOT + "/logfile",
+            'filename': PROJECT_ROOT + "/teamstore.log",
+            'formatter': 'verbose'    
+        },
+        'test_logfile': {
+            'level':'DEBUG',
+            'class':'logging.FileHandler',
+            'filename': PROJECT_ROOT + "/test_teamstore.log",
             'formatter': 'verbose'    
         }
     },
@@ -238,16 +245,21 @@ LOGGING = {
             'level': 'ERROR',
         'propagate': True
         },
-        'django.template': {
+        'django.server': {
+             'handlers': ['console','test_logfile'],
+             'level':'INFO',
+             'propogate': True
+         },
+        'payments.paypal': {
             'handlers': ['logfile'],
-            'level':'INFO',
+            'level':'DEBUG',
             'propogate': True
         },
         'saleor': {
-            'handlers': ['console'],
+            'handlers': ['logfile'],
             'level': 'DEBUG',
             'propagate': True
-        },
+        }
     } 
 }
 

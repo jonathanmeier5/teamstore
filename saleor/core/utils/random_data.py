@@ -492,6 +492,7 @@ def create_product_sales(how_many=5):
 def create_shipping_methods():
     shipping_method = ShippingMethod.objects.create(name='UPC')
     shipping_method.price_per_country.create(price=fake.price())
+    shipping_method.save()
     yield 'Shipping method #%d' % shipping_method.id
     shipping_method = ShippingMethod.objects.create(name='DHL')
     shipping_method.price_per_country.create(price=fake.price())
