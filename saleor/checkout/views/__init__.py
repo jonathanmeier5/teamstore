@@ -44,9 +44,7 @@ def shipping_address_view(request, checkout):
 def shipping_method_view(request, checkout):
     team = get_team(request.session['team'])
     if team != None and team.group_shipping:
-        print("This is screwing us ",team.team_name)
         checkout.shipping_method = team.shipping_method
-        print(checkout.shipping_method, " ", team.shipping_method)
         return redirect('checkout:summary')
 
     else:
@@ -67,10 +65,8 @@ def shipping_method_view(request, checkout):
 @add_voucher_form
 def summary_view(request, checkout):
     if checkout.is_shipping_required:
-        print(checkout)
         view = validate_shipping_address(summary_with_shipping_view)
         view = validate_shipping_method(view)
-        print("Did we validate shipping view and method?",checkout.shipping_method)
         return view(request, checkout)
     elif request.user.is_authenticated():
         return summary_without_shipping(request, checkout)
