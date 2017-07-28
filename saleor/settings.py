@@ -31,7 +31,7 @@ if os.environ.get('REDIS_URL'):
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': os.environ.get('REDIS_URL')}
 
-DB_DEV = True
+DB_DEV = False
 DB_STAGE = not DB_DEV
 
 if DB_DEV: db_string = 'postgres://saleor:saleor@localhost:5432/saleor'
@@ -227,19 +227,12 @@ LOGGING = {
         }, 
          'logfile': {
             'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.FileHandler',
             'filename': PROJECT_ROOT + "/logfile",
-            'maxBytes': 50000,
-            'backupCount': 5,
             'formatter': 'verbose'    
         }
     },
     'loggers': {
-        'django': {
-            'handlers': ['logfile'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
@@ -251,7 +244,7 @@ LOGGING = {
             'propogate': True
         },
         'saleor': {
-            'handlers': ['logfile'],
+            'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': True
         },
