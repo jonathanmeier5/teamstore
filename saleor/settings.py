@@ -31,7 +31,7 @@ if os.environ.get('REDIS_URL'):
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': os.environ.get('REDIS_URL')}
 
-DB_DEV = os.environ.get('DB_STATE',True)
+DB_DEV = os.environ.get('DB_DEV',False)
 DB_STAGE = not DB_DEV
 
 if DB_DEV: db_string = 'postgres://teamstore:teamstore@localhost:5432/teamstore'
@@ -253,6 +253,11 @@ LOGGING = {
             'handlers': ['logfile'],
             'level':'DEBUG',
             'propogate': True
+        },
+        'django': {
+            'handlers': ['logfile'],
+            'level': 'DEBUG',
+            'propagate': True
         },
         'saleor': {
             'handlers': ['logfile'],
